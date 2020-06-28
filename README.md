@@ -67,7 +67,7 @@ curl --location --request GET "localhost:5000/sales"
 ```
 
 Highlighted is expectation of inserting an update of availableQuantity, and see latest change when still keeping track of all updates in same table
-![](unit_testing_image.png)
+![](unit_image.png)
 
 ## Next steps
 
