@@ -1,6 +1,6 @@
 
 ## Case Study for Inventory Managedment
-
+``` bash
 ├── ...
 ├── app                    # Documentation files (alternatively `doc`)
 │   ├── app.py              # Table of contents
@@ -22,3 +22,4 @@ test, and deploy the code, as in https://gitlab.com/TrendDotFarm/docker-tutorial
 For more information, read the [Docker Compose Integration to GitLab
 CI](GitLab-CI.md) guide.
 o
+```
