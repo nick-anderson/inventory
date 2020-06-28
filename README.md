@@ -50,10 +50,23 @@ curl --location --request POST "localhost:5000/inventory" \
 curl --location --request GET "localhost:5000/inventory"
 ```
 
-Last is a bit tricky as inventoryDB tracks all updates, but from API the application needs just latest update for each productID
+This is a bit tricky as inventoryDB tracks all updates, but from API the application needs just latest update for each productID sorted by the auto-increment column. This can be done with date-time comparisons, but this does sthe same job :)
 
 ```SELECT m1.productId,m1.availableQuantity
 FROM inventory m1 LEFT JOIN inventory m2
 ON (m1.productID = m2.productID AND m1.record < m2.record)
 WHERE m2.productID IS NULL;
 ```
+
+
+* Show top selling products (GroupBY query)
+```curl --location --request GET "localhost:5000/sales"
+```
+
+
+## Next steps
+
+This is just setting up the backend with all containerized applications running locally. A user interface to interact with to call these API GET/POST requests and some monitoring service such that it can call the /inventory API to check for criteria and either send email out or UI to show which productID are low given updates. To deploy on an external facing service like AWS:
+
+* Spin up compute and open external facing security groups and run this same application with ip = 0.0.0.0
+<!-- * Use a public   -->
