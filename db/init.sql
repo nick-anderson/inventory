@@ -1,5 +1,6 @@
 CREATE DATABASE IF NOT EXISTS interview;
 USE interview;
+
 CREATE TABLE IF NOT EXISTS product  (
     id int(10),
     name varchar(255),
@@ -13,9 +14,6 @@ CREATE TABLE IF NOT EXISTS orders  (
     quantity int	(3),
     price float(3)
     );
-
-    SHOW TABLES;
-
 
 CREATE TABLE IF NOT EXISTS inventory  (
     record int(10) auto_increment,
