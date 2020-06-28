@@ -11,6 +11,7 @@
 │   └── ...                
 │── run.sh                 # Kicks off docker compose build and deploy - Nice to have for testing
 │── docker-compose.yml     # 2-Container deployment of mysql and flask app
+│── united_image.png       # Screenshot for README.md of unit_testing.py
 │── unit_testing.py        # Python Script to try various curl commands for POST/GET
 └──
 ```
@@ -65,6 +66,8 @@ WHERE m2.productID IS NULL;
 curl --location --request GET "localhost:5000/sales"
 ```
 
+Highlighted is expectation of inserting an update of availableQuantity, and see latest change when still keeping track of all updates in same table
+![](unit_testing_image.png)
 
 ## Next steps
 
