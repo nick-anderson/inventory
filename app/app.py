@@ -124,28 +124,6 @@ def top() -> str:
 #         # return jsonify(allData)
 
 
-def favorite_colors() -> List[Dict]:
-    config = {
-        'user': 'root',
-        'password': 'root',
-        'host': 'db',
-        'port': '3306',
-        'database': 'interview'
-    }
-    connection = mysql.connector.connect(**config)
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM inventory')
-    results = [{productID: availabbleQuantity} for (productID, availabbleQuantity) in cursor]
-    cursor.close()
-    connection.close()
-
-    return results
-
-
-@app.route('/')
-def index() -> str:
-    return json.dumps({'favorite_colors': favorite_colors()})
-
 #
 #
 #

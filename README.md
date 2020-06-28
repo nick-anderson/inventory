@@ -17,14 +17,27 @@
 
 ## Building flask application with Docker
 
-This was my first time doing a multi-container application with Docker-Compose that work together, generally I've been working in the k8 and multi-container in same pod space. The setup is very familiar and uses similar YAML formatting but for this application you just need to run MYSQL container that I pulled from Dockerhub mysql:5.7 and custom built flask image on respective 3307/5000 ports. Docker compose has ability to build images on fly rather than using ```docker build -t flaskapp:v1 . ``` \
+This was my first time doing a multi-container application with Docker-Compose that communicate with eachother, generally I've been working in the kubernetes using multi-container in same pod. The setup is similar with YAML formatting but for this application you just need to run MYSQL container that I pulled from Dockerhub mysql:5.7 and custom built flask image on respective 3307/5000 ports. Docker compose has ability to build images on fly rather than using ```docker build -t flaskapp:v1 . ```
 
-The run.sh command invokes a build and redeploy and doesn't cache so when adding additional functionality to flask app, you aren't stuck debugging for a redeployment that didn't pick up local change: ```docker-compose build && docker-compose up ```\
+The run.sh command invokes a build and redeploy and doesn't cache so when adding additional functionality to flask app, you aren't stuck debugging for a redeployment that didn't pick up local change: ```docker-compose build && docker-compose up ```
 
 ## Docker compose networking and Volume mounts
 
-For this application, I'm just running it local so the docker volume claim lives as long as I don't run ```docker-compose down```. For Kubernetes deployment using a storage class like AWS EFS where it uses NFS protocol, so that multiple pods can mount the same volume and use shared same space is very useful. For this application that's not needed as the Flask API is submitting queries to MySQL container. Exposing the port from containers, in this case just default but can always change client side port if there is a pre-existing application blocking it.\
+For this application, I'm just running it local so the docker volume claim lives as long as I don't run ```docker-compose down```. For Kubernetes deployment using a storage class like AWS EFS where it uses NFS protocol, so that multiple pods can mount the same volume and use shared same space is very useful. For this application that's not needed as the Flask API is submitting queries to MySQL container. Exposing the port from containers, in this case just default but can always change client side port if there is a pre-existing application blocking it.
 
 ## API functionality
 
-In the provided directory there is a unit_testing.py that casts curl commands using python's OS library. These strings were generated from postman and can be invoked in a lot of different ways
+In the provided directory there is a unit_testing.py that casts curl commands using python's OS library. These strings were generated from postman and can be invoked in a lot of different ways. By default its a POST request taking in the update
+
+* Inserting an update of product Quantity to DB
+
+```curl --location --request POST "localhost:5000/inventory" \
+--form "availableQuantity=55" \
+--form "productID=1" '''
+```
+
+* Updating product quantity
+
+```curl --location --request POST "localhost:5000/inventory" \
+--form "availableQuantity=3" \
+--form "productID=1" '''
