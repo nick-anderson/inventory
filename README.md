@@ -60,7 +60,9 @@ WHERE m2.productID IS NULL;
 
 
 * Show top selling products (GroupBY query)
-```curl --location --request GET "localhost:5000/sales"
+
+```
+curl --location --request GET "localhost:5000/sales"
 ```
 
 
@@ -69,4 +71,4 @@ WHERE m2.productID IS NULL;
 This is just setting up the backend with all containerized applications running locally. A user interface to interact with to call these API GET/POST requests and some monitoring service such that it can call the /inventory API to check for criteria and either send email out or UI to show which productID are low given updates. To deploy on an external facing service like AWS:
 
 * Spin up compute and open external facing security groups and run this same application with ip = 0.0.0.0
-<!-- * Use a public   -->
+<!-- * Use a public     -->
