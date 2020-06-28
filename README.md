@@ -31,13 +31,29 @@ In the provided directory there is a unit_testing.py that casts curl commands us
 
 * Inserting an update of product Quantity to DB
 
-```curl --location --request POST "localhost:5000/inventory" \
+```
+curl --location --request POST "localhost:5000/inventory" \
 --form "availableQuantity=55" \
---form "productID=1" '''
+--form "productID=1"
 ```
 
 * Updating product quantity
 
-```curl --location --request POST "localhost:5000/inventory" \
+```
+curl --location --request POST "localhost:5000/inventory" \
 --form "availableQuantity=3" \
---form "productID=1" '''
+--form "productID=1"
+```
+
+* Grab latest available quantity of products
+```
+curl --location --request GET "localhost:5000/inventory"
+```
+
+Last is a bit tricky as inventoryDB tracks all updates, but from API the application needs just latest update for each productID
+
+```SELECT m1.productId,m1.availableQuantity
+FROM inventory m1 LEFT JOIN inventory m2
+ON (m1.productID = m2.productID AND m1.record < m2.record)
+WHERE m2.productID IS NULL;
+```
