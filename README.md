@@ -11,7 +11,7 @@
 │   └── ...                
 │── run.sh                 # Kicks off docker compose build and deploy - Nice to have for testing
 │── docker-compose.yml     # 2-Container deployment of mysql and flask app
-│── united_image.png       # Screenshot for README.md of unit_testing.py
+│── unit_image.png       # Screenshot for README.md of unit_testing.py
 │── unit_testing.py        # Python Script to try various curl commands for POST/GET
 └──
 ```
