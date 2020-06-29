@@ -9,9 +9,6 @@ from flasgger import Swagger
 app = Flask(__name__)
 swagger = Swagger(app)
 
-
-# app = Fla sk(__name__)
-
 @app.route('/inventory', methods=['POST','GET'])
 def inventory():
     config = {
@@ -59,8 +56,6 @@ def inventory():
 
         return jsonify(allData)
 
-
-
 @app.route('/product', methods=['POST', 'GET'])
 def product():
     config = {
@@ -89,7 +84,6 @@ def product():
             'price': price
         })
 
-
 @app.route('/orders', methods=['POST'])
 def order():
     config = {
@@ -108,9 +102,6 @@ def order():
         quantity = data['quantity'][0]
         price = data['price'][0]
         cursor.execute('INSERT INTO orders (id,productID,quantity,price) VALUES(%s, %s, %s, %s)', (str(id),str(productID), str(quantity),str(price)))
-        # cursor.execute('INSERT INTO orders (id,productID,quantity,price) VALUES(123,12345,50,90)', (str(id),str(productID), str(quantity),str(price)))
-        # val = cursor.execute('SELECT availableQuantity from inventory WHERE productID LIKE 2')
-        # print('This is standard output',val, file=sys.stdout)
         connection.commit()
         cursor.close()
         return jsonify({
@@ -122,8 +113,6 @@ def order():
         })
 
 
-
-#
 def top_sales() -> List[Dict]:
     config = {
         'user': 'root',
@@ -134,7 +123,6 @@ def top_sales() -> List[Dict]:
     }
     connection = mysql.connector.connect(**config)
     cursor = connection.cursor()
-    # print('This is standard output', file=sys.stdout)
     query ='''
     select productID, sum(quantity) as total_sales from orders group by productID order by SUM(quantity) DESC LIMIT 5;
     '''
@@ -143,11 +131,6 @@ def top_sales() -> List[Dict]:
     cursor.close()
     connection.close()
     return results
-#
-# @app.route('/sales')
-# def top() -> str:
-#     return json.dumps({'top_sales': top_sales()})
-# #
 
 @app.route('/sales/<items>/')
 def sales(items):
@@ -178,28 +161,6 @@ def sales(items):
     """
     return json.dumps({'top_sales': top_sales()})
 
-
-
-# def alert_func() -> List[Dict]:
-#     config = {
-#         'user': 'root',
-#         'password': 'root',
-#         'host': 'db',
-#         'port': '3306',
-#         'database': 'interview'
-#     }
-#     connection = mysql.connector.connect(**config)
-#     cursor = connection.cursor()
-#     # print('This is standard output', file=sys.stdout)
-#     query ='''
-#     select DISTINCT(productID) as low_product from inventory WHERE availableQuantity < 5;
-#     '''
-#     cursor.execute(query)
-#     results = [{low_product: str(low_product)}]
-#     cursor.close()
-#     connection.close()
-#     return results
-
 @app.route('/alert', methods=['POS  T','GET'])
 def alert():
     config = {
@@ -217,7 +178,6 @@ def alert():
     ''')
     num_products = cursor.fetchall()
     allData = []
-    # print(num_products)
     for i in range(len(num_products)):
         productID = num_products[i][0]
         availableQuantity = num_products[i][1]
