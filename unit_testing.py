@@ -23,7 +23,7 @@ os.system(update_quantity_1)
 print('')
 
 #Create latest quantity for product2
-print('Updating availableQuantity for productID1 to DB')
+print('Updating availableQuantity for productID2 to DB')
 print('')
 update_quantity_2 = '''
 curl --location --request POST "localhost:5000/inventory" \
@@ -33,7 +33,7 @@ os.system(update_quantity_2)
 print('')
 
 #New Order comes in of a purchase of 50
-print('New order of 50 comes in for change in order quantity of Product2 to DB')
+print('New order of 50 comes in for tomatoes, insert of order quantity of Product2 to DB')
 print('')
 order_update_1 = '''
 curl --location --request POST "localhost:5000/orders" \
@@ -46,7 +46,7 @@ os.system(order_update_1)
 print('')
 
 #Update latest quantity for product2 - from previous order, 300 -> 250 from order of 50
-print('Post order of 50, availableQuantity is reduced from 300 -> 250')
+print('After order of 50, availableQuantity is reduced from 300 -> 250')
 print('')
 update_quantity_3 = '''
 curl --location --request POST "localhost:5000/inventory" \

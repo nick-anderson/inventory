@@ -159,7 +159,7 @@ def sales(items):
         type: string
         enum: ['all']
         required: false
-        default: get_sales
+        default: all
     definitions:
       Palette:
         type: object
@@ -168,7 +168,7 @@ def sales(items):
             type: array
             items:
               $ref: '#/definitions/sales'
-      Color:
+      Sales:
         type: string
     responses:
       200:
