@@ -60,6 +60,7 @@ def inventory():
         return jsonify(allData)
 
 
+
 @app.route('/product', methods=['POST', 'GET'])
 def product():
     config = {
@@ -178,6 +179,55 @@ def sales(items):
     return json.dumps({'top_sales': top_sales()})
 
 
+
+# def alert_func() -> List[Dict]:
+#     config = {
+#         'user': 'root',
+#         'password': 'root',
+#         'host': 'db',
+#         'port': '3306',
+#         'database': 'interview'
+#     }
+#     connection = mysql.connector.connect(**config)
+#     cursor = connection.cursor()
+#     # print('This is standard output', file=sys.stdout)
+#     query ='''
+#     select DISTINCT(productID) as low_product from inventory WHERE availableQuantity < 5;
+#     '''
+#     cursor.execute(query)
+#     results = [{low_product: str(low_product)}]
+#     cursor.close()
+#     connection.close()
+#     return results
+
+@app.route('/alert', methods=['POS  T','GET'])
+def alert():
+    config = {
+        'user': 'root',
+        'password': 'root',
+        'host': 'db',
+        'port': '3306',
+        'database': 'interview'
+    }
+
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor()
+    cursor.execute('''
+    select DISTINCT(productID),availableQuantity as low_product from inventory WHERE availableQuantity < 5;
+    ''')
+    num_products = cursor.fetchall()
+    allData = []
+    # print(num_products)
+    for i in range(len(num_products)):
+        productID = num_products[i][0]
+        availableQuantity = num_products[i][1]
+        dataDict = {
+            "productID": productID,
+            "availableQuantity": availableQuantity
+        }
+        allData.append(dataDict)
+
+    return jsonify(allData)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

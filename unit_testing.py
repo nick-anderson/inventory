@@ -67,8 +67,17 @@ print('')
 
 # And a separate REST endpoint that shows Top Selling products
 print('Show top selling products (ProductID, Quantity Ordered)')
-#Top sales
+print('')
 top_sales = '''
 curl --location --request GET "localhost:5000/sales/all"
 '''
 os.system(top_sales)
+print('')
+
+# Alert if Quantity <=4
+print('Showing products with low availableQuantity')
+print('')
+alert = '''
+curl --location --request GET "localhost:5000/alert"
+'''
+os.system(alert)
