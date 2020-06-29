@@ -161,7 +161,7 @@ def sales(items):
     """
     return json.dumps({'top_sales': top_sales()})
 
-@app.route('/alert', methods=['POS  T','GET'])
+@app.route('/alert', methods=['POST','GET'])
 def alert():
     config = {
         'user': 'root',
